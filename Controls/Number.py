@@ -1,0 +1,76 @@
+"""
+Added number control.
+Primary Options:
+    decimals
+    
+Example:
+    num = Number('name','Caption')
+    num.decimals = 3
+    num.render()
+    
+    input:
+        1.4567
+     will yeild:
+        1.457
+
+"""
+
+# The contents of this program are subject to the Koar Public License
+# (the "License"); you may not use this file except in compliance with
+# the License. You may obtain a copy of the License at
+# http://www.koarcg.com/license
+
+# Software distributed under the License is distributed on an "AS IS" basis,
+# WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+# for the specific language governing rights and limitations under the
+# License.
+# included LICENSE.txt file for more information. Copyright 2007 KCG.
+
+
+__all__ = ['Number']
+from kcontrol.Controls.TextBox import TextBox
+from decimal import Decimal
+
+class Number(TextBox):
+    decimals = 0 # number of decimal places
+    defaultValue = None
+
+    def buildResources(self):
+        self.pushResourceUp('js', 'number_control.js')
+        lookup = {'decimals' : self.decimals,
+                  'name' : self.name}
+        self.addHtmlAttr('style', 'text-align:right;')
+        self.addJSEvent("onblur", 'formatNumber("%(name)s", %(decimals)s) ' %
+            lookup)                 
+
+        if self.value is None:
+            pass
+        else:
+            self.value = self.format_string() % self.value
+        TextBox.buildResources(self)
+
+    @property
+    def VIEW(self):
+        """ Returns the str rep of the value.
+        This may be overriden to do formatting for print views of the data.
+        """
+        if self.value is None:
+            return ''
+        try:
+            value = Decimal(str(self.value))
+            if value < 0:
+                return "<span style='color:#FF0000;'>%s</span>" % \
+                    self.format_string() % value
+            else:
+                return self.format_string() % value
+        except:
+            return 'ERROR: %s' % self.value
+
+
+    def format_string(self):
+        if self.decimals == 0:
+            return "%d"
+        elif self.decimals > 0:
+            return "%%.0%sf" % self.decimals
+        else:
+            raise ValueError, 'decimals must be a natural number' 

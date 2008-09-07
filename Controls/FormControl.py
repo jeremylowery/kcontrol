@@ -1,0 +1,87 @@
+
+# The contents of this program are subject to the Koar Public License
+# (the "License"); you may not use this file except in compliance with
+# the License. You may obtain a copy of the License at
+# http://www.koarcg.com/license
+
+# Software distributed under the License is distributed on an "AS IS" basis,
+# WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+# for the specific language governing rights and limitations under the
+# License.
+# included LICENSE.txt file for more information. Copyright 2007 KCG.
+
+
+from kcontrol.Controls.Control import Control
+from kcontrol.Controls.Label import Label
+
+class FormControl(Control):
+    inputType = 'text'
+    shadowControl = False
+    showCaption = True
+
+    def _get_htmlID(self):
+        return self.name
+    htmlID = property(_get_htmlID)
+
+    def _get_htmlAttrs(self):
+        attrs = Control._get_htmlAttrs(self)
+        attrs['id'] = self.htmlID
+        attrs['name'] = self.name
+        return attrs
+    htmlAttrs = property(_get_htmlAttrs, doc=Control._doc_htmlAttrs)
+
+    def _get_caption(self):
+        label = Label(caption=self._caption)
+        label.ds = self.name
+        return label.render()
+    caption = property(_get_caption, Control._set_caption)
+
+    def draw(self):
+        # fix for cheetah useage
+        if not self.value:
+            self.value = self.defaultValue
+        
+        jscript = None
+        jscript = '\n'.join(self._resourcesUp.get('inline_js', []))
+        if jscript:
+            jscript = """
+<script langauge='javascript'>
+%s
+</script>""" % jscript
+        if self.shadowControl:
+            buf = "<input type='hidden' name='%s' value='' />" % self.name
+        else:
+            buf = ''
+
+        return """%s<input type='%s' 
+    %s 
+    %s 
+    %s />%s""" % (
+            self.drawShadowControl(),
+            self.inputType,
+            self.drawValueAttr(),
+            self.drawHtmlAttrs(),
+            self.drawJSEvents(),
+            jscript
+        )
+
+    def drawShadowControl(self):
+        if self.shadowControl:
+            return "<input type='hidden' name='%s' value='' />" % self.name
+        else:
+            return ''
+
+    def drawValueAttr(self):
+        return "value='%s'" % self.htmlEncode(self.value)
+
+    def findForm(self):
+        """ Seaches up the control hierarchy for the form that the form control is a member of """
+        from Form import Form
+        parent = self.parent
+        while True:
+            if isinstance(parent, Form):
+                if parent.showFormTag:
+                    return parent
+            elif parent is None:
+                return None
+            parent = parent.parent
