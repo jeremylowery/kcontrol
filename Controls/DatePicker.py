@@ -61,7 +61,7 @@ class DatePicker(TextBox):
         TextBox.buildResources(self)
 
     def draw(self):
-        img_path = '/img/kcontrol'
+        img_path = '/repo/img/kcontrol'
 
         if not self.value or isinstance(self.value, str):
             pass
