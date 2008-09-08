@@ -10,12 +10,20 @@
 # License.
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
-import threading
+import cgi
 import copy
+import threading
 import UserDict
 
-
 __all__ = ['DS', 'SingleValueDS', 'RepeatDS']
+
+
+def from_fs(fs=None):
+    global store
+    if fs is None:
+        fs = cgi.FieldStorage()
+    for key in fs.keys():
+        store[key] = fs.getvalue(key)
 
 class ThreadDict(UserDict.DictMixin):
     """ Dictionary-like thread local storage. """

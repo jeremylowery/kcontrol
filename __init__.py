@@ -1,5 +1,6 @@
 
 from ds import store
+from ds import from_fs
 
 from Controls.Control import Control
 from Controls.Control import ResWatcher
