@@ -200,6 +200,8 @@ class Control(object):
         for k, v in kwd.items():
             if k in ('onchange', 'onblur', 'onkeydown', 'onkeyup'):
                 self.addJSEvent(k, v)
+            elif k in ('id', 'class_', 'style'):
+                self.addHtmlAttr(k, v)
             else:
                 setattr(self, k, v)
 

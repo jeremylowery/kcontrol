@@ -25,8 +25,10 @@ class FormControl(Control):
 
     def _get_htmlAttrs(self):
         attrs = Control._get_htmlAttrs(self)
-        attrs['id'] = self.htmlID
-        attrs['name'] = self.name
+        if 'id' not in attrs:
+            attrs['id'] = self.htmlID
+        if 'name' not in attrs:
+            attrs['name'] = self.name
         return attrs
     htmlAttrs = property(_get_htmlAttrs, doc=Control._doc_htmlAttrs)
 
