@@ -12,6 +12,7 @@ from Controls.Button import Button
 from Controls.CheckBox import CheckBox
 from Controls.Currency import Currency
 from Controls.DatePicker import DatePicker
+from Controls.Dropdown import Dropdown
 from Controls.Hidden import Hidden
 from Controls.Icon import Icon
 from Controls.Info import Info

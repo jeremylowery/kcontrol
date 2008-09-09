@@ -12,11 +12,13 @@
 
 import cgi
 import copy
+import kg.mapping
 import threading
 import UserDict
 
 __all__ = ['DS', 'SingleValueDS', 'RepeatDS']
 
+store = kg.mapping.ThreadDict()
 
 def from_fs(fs=None):
     global store
@@ -24,26 +26,6 @@ def from_fs(fs=None):
         fs = cgi.FieldStorage()
     for key in fs.keys():
         store[key] = fs.getvalue(key)
-
-class ThreadDict(UserDict.DictMixin):
-    """ Dictionary-like thread local storage. """
-    def __init__(self):
-        self._local = threading.local()
-        self._keys = []
-
-    def __getitem__(self, key):
-        try:
-            return getattr(self._local, key)
-        except AttributeError:
-            raise KeyError, key
-
-    def __setitem__(self, key, value):
-        return setattr(self._local, key, value)
-
-    def keys(self):
-        return [c for c in dir(self._local) if not c.startswith('_')]
-
-store = ThreadDict()
 
 class DS(object):
 	"""A data source provided to a control which provides values.
