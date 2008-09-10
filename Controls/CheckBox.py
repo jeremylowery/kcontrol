@@ -28,13 +28,11 @@ class CheckBox(FormControl):
             value = ''
         return """<input type='%s' 
     name='%s' 
-    id='%s' 
     %s
     %s 
     %s>""" % (
             self.inputType,
             self.name,
-            self.htmlID,
             value,
             self.drawHtmlAttrs(),
             self.drawJSEvents()
