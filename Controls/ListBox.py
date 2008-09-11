@@ -70,10 +70,15 @@ class ListBox(FormControl):
         opts = []
         if self.blankOption:
             opts.append("<option value=''></option>")
+        if not isinstance(self.value, list):
+            values = [str(self.value)]
+        else:
+            values = [str(s) for s in self.value]
+
         for value, caption in self.values.items():
             opts.append("<option value='%s' %s>%s</option>" % (
                 value,
-                str(value) == str(self.value) and "selected='selected'" or '',
+                value in values and "selected='selected'" or '',
                 caption
             ))
         return '\n'.join(opts)
