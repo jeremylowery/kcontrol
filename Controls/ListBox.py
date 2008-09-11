@@ -10,11 +10,9 @@
 # License.
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
-from kcontrol.util import OrderedDict
 from FormControl import FormControl
 
 class ListBox(FormControl):
-    values = OrderedDict()
     _vals_built = False
     blankOption = False
     size = 1
@@ -22,13 +20,10 @@ class ListBox(FormControl):
 
     def __init__(self, name=None, caption='', *a, **kwargs):
         if 'values' in kwargs:
-            self.values = OrderedDict()
-            for k, v in kwargs['values']:
-                self.values[k] = v
+            self.values = list(kwargs['values'])
             del kwargs['values']
-            #kwargs = dict(i for i in kwargs.items() if i[0] != 'values')
         else:
-            self.values = OrderedDict()
+            self.values = []
         FormControl.__init__(self, name, caption, *a, **kwargs)
 
     def _get_htmlAttrs(self):
@@ -75,7 +70,7 @@ class ListBox(FormControl):
         else:
             values = [str(s) for s in self.value]
 
-        for value, caption in self.values.items():
+        for value, caption in self.values:
             opts.append("<option value='%s' %s>%s</option>" % (
                 value,
                 value in values and "selected='selected'" or '',
@@ -83,65 +78,60 @@ class ListBox(FormControl):
             ))
         return '\n'.join(opts)
 
-    def sleep(self, trans=None):
-        FormControl.sleep(self, trans)
-        self.values = OrderedDict()
-
 class StateListBox(ListBox):
     def __init__(self, name=None, caption='', *a, **k):
         FormControl.__init__(self, name, caption, *a, **k)
-        values = OrderedDict()
-        values[""] = ""
-        values["AL"] = "Alabama"
-        values["AK"] = "Alaska"
-        values["AZ"] = "Arizona"
-        values["AR"] = "Arkansas"
-        values["CA"] = "California"
-        values["CO"] = "Colorado"
-        values["CT"] = "Connecticut"
-        values["DE"] = "Delaware"
-        values["DC"] = "District of Columbia"
-        values["FL"] = "Florida"
-        values["GA"] = "Georgia"
-        values["HI"] = "Hawaii"
-        values["ID"] = "Idaho"
-        values["IL"] = "Illinois"
-        values["IN"] = "Indiana"
-        values["IA"] = "Iowa"
-        values["KS"] = "Kansas"
-        values["KY"] = "Kentucky"
-        values["LA"] = "Louisiana"
-        values["ME"] = "Maine"
-        values["MD"] = "Maryland"
-        values["MA"] = "Massachusetts"
-        values["MI"] = "Michigan"
-        values["MN"] = "Minnesota"
-        values["MS"] = "Mississippi"
-        values["MO"] = "Missouri"
-        values["MT"] = "Montana"
-        values["NE"] = "Nebraska"
-        values["NV"] = "Nevada"
-        values["NH"] = "New Hampshire"
-        values["NJ"] = "New Jersey"
-        values["NM"] = "New Mexico"
-        values["NY"] = "New York"
-        values["NC"] = "North Carolina"
-        values["ND"] = "North Dakota"
-        values["OH"] = "Ohio"
-        values["OK"] = "Oklahoma"
-        values["OR"] = "Oregon"
-        values["PA"] = "Pennsylvania"
-        values["RI"] = "Rhode Island"
-        values["SC"] = "South Carolina"
-        values["SD"] = "South Dakota"
-        values["TN"] = "Tennessee"
-        values["TX"] = "Texas"
-        values["UT"] = "Utah"
-        values["VT"] = "Vermont"
-        values["VA"] = "Virginia"
-        values["WA"] = "Washington"
-        values["WV"] = "West Virginia"
-        values["WI"] = "Wisconsin"
-        values["WY"] = "Wyoming"
-        self.values = values
+        self.values = [
+            ("", ""),
+            ("AL", "Alabama"),
+            ("AK", "Alaska"),
+            ("AZ", "Arizona"),
+            ("AR", "Arkansas"),
+            ("CA", "California"),
+            ("CO", "Colorado"),
+            ("CT", "Connecticut"),
+            ("DE", "Delaware"),
+            ("DC", "District of Columbia"),
+            ("FL", "Florida"),
+            ("GA", "Georgia"),
+            ("HI", "Hawaii"),
+            ("ID", "Idaho"),
+            ("IL", "Illinois"),
+            ("IN", "Indiana"),
+            ("IA", "Iowa"),
+            ("KS", "Kansas"),
+            ("KY", "Kentucky"),
+            ("LA", "Louisiana"),
+            ("ME", "Maine"),
+            ("MD", "Maryland"),
+            ("MA", "Massachusetts"),
+            ("MI", "Michigan"),
+            ("MN", "Minnesota"),
+            ("MS", "Mississippi"),
+            ("MO", "Missouri"),
+            ("MT", "Montana"),
+            ("NE", "Nebraska"),
+            ("NV", "Nevada"),
+            ("NH", "New Hampshire"),
+            ("NJ", "New Jersey"),
+            ("NM", "New Mexico"),
+            ("NY", "New York"),
+            ("NC", "North Carolina"),
+            ("ND", "North Dakota"),
+            ("OH", "Ohio"),
+            ("OK", "Oklahoma"),
+            ("OR", "Oregon"),
+            ("PA", "Pennsylvania"),
+            ("RI", "Rhode Island"),
+            ("SC", "South Carolina"),
+            ("SD", "South Dakota"),
+            ("TN", "Tennessee"),
+            ("TX", "Texas"),
+            ("UT", "Utah"),
+            ("VT", "Vermont"),
+            ("VA", "Virginia"),
+            ("WA", "Washington"),
+            ("WV", "West Virginia"),
+            ("WI", "Wisconsin"),
+            ("WY", "Wyoming")]
 

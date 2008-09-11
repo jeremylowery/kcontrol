@@ -550,6 +550,8 @@ class Control(object):
         for k, v in attrs.items():
             if k not in self.quoteExceptions:
                 v = self.htmlEncode(v)
+            if k[-1] == '_':
+                k = k[:-1]
             tar.append("%s='%s'" % (k, v))
         return "\n ".join(tar)
 
