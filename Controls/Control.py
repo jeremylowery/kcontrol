@@ -198,9 +198,9 @@ class Control(object):
         self._resourcesUp = {}        # Resources that propigate up the chain
         self._resourcesDown = {}    # Resources that propigate down the chain
         for k, v in kwd.items():
-            if k in ('onchange', 'onblur', 'onkeydown', 'onkeyup'):
+            if k in ('onchange', 'onblur', 'onkeydown', 'onkeyup', 'onclick'):
                 self.addJSEvent(k, v)
-            elif k in ('id', 'class_', 'style'):
+            elif k in ('id', 'class_', 'style', 'disabled'):
                 self.addHtmlAttr(k, v)
             else:
                 setattr(self, k, v)
