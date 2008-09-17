@@ -89,6 +89,7 @@ class DatePicker(TextBox):
         else:
             st = 'false'
 
+        id = self.htmlAttrs.get('id', self.name)
         if self.showCalendar:
             buf = """\
                 <table cellpadding='0' cellspacing='0' border='0'>
@@ -111,9 +112,9 @@ class DatePicker(TextBox):
                 </script>
                     </td>
                   </tr>
-                  </table>""" % (buf, img_path, self.name,
-                                    self.name, self.format, st,
-                                    self.name)
+                  </table>""" % (buf, img_path, id,
+                                    id, self.format, st,
+                                   id)
         return buf
 
     @property
