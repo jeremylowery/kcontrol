@@ -170,7 +170,7 @@ class Control(object):
 
     _resource_watchers = [ResWatcher]
 
-    def __init__(self, name=None, caption='', **kwd):
+    def __init__(self, name=None, caption='', pos=None, **kwd):
         """ Construct a control
 
         All arguments are optional and need not be defined. If no name is given
@@ -193,12 +193,14 @@ class Control(object):
         if caption:
             self.caption = caption
 
+        self.pos = pos
         self._jsEvents = {}
         self._resources = {}        # Resources on self, overriding all others
         self._resourcesUp = {}        # Resources that propigate up the chain
         self._resourcesDown = {}    # Resources that propigate down the chain
         for k, v in kwd.items():
-            if k in ('onchange', 'onblur', 'onkeydown', 'onkeyup', 'onclick'):
+            if k in ('onchange', 'onfocus',
+                     'onblur', 'onkeydown', 'onkeyup', 'onclick'):
                 self.addJSEvent(k, v)
             elif k in ('id', 'class_', 'style', 'disabled'):
                 self.addHtmlAttr(k, v)
@@ -246,14 +248,23 @@ class Control(object):
     _doc_value = """
         Retrieves the value of the control. This actually queries the data
         source of the control, based off the name of the control.
+
+        If the data source is a list, a pos can also be given to the
+        constructor to specify which element.
     """
     def _get_value(self):
         if not self.useValue or self.ds is None:
             return ''
         try:
-            return self.ds[self.name]
+            value = self.ds[self.name]
         except KeyError:
-            return self.defaultValue
+            value = self.defaultValue
+        if isinstance(value, (list, tuple)) and self.pos is not None:
+            return value[self.pos]
+        else:
+            return value
+            
+
     def _set_value(self, value):
         log.debug('Setting value %s for %s', value, self.name)
         self._ds = kcontrol.ds.SingleValueDS(value)
