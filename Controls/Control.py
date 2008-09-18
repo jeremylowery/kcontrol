@@ -202,7 +202,7 @@ class Control(object):
             if k in ('onchange', 'onfocus',
                      'onblur', 'onkeydown', 'onkeyup', 'onclick'):
                 self.addJSEvent(k, v)
-            elif k in ('id', 'class_', 'style', 'disabled'):
+            elif k in ('id', 'class_', 'style', 'disabled', 'autocomplete'):
                 self.addHtmlAttr(k, v)
             else:
                 setattr(self, k, v)
