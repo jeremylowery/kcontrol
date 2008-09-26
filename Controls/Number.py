@@ -49,6 +49,15 @@ class Number(TextBox):
             self.value = self.format_string() % self.value
         TextBox.buildResources(self)
 
+    def _get_value(self):
+        v = super(Number, self)._get_value()
+        if v:
+            return int(v)
+        else:
+            return 0
+
+    value = property(_get_value, TextBox._set_value)
+
     @property
     def VIEW(self):
         """ Returns the str rep of the value.
