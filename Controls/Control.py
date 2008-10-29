@@ -261,7 +261,10 @@ class Control(object):
         except KeyError:
             value = self.defaultValue
         if isinstance(value, (list, tuple)) and self.pos is not None:
-            return value[self.pos]
+            if self.pos >= len(value):
+                return None
+            else:
+                return value[self.pos]
         else:
             return value
             
