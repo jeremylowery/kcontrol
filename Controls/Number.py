@@ -35,11 +35,13 @@ class Number(TextBox):
     decimals = 0 # number of decimal places
     defaultValue = None
 
+    right_align = True
     def buildResources(self):
         self.pushResourceUp('js', 'number_control.js')
         lookup = {'decimals' : self.decimals,
                   'name' : self.name}
-        self.addHtmlAttr('style', 'text-align:right;')
+        if self.right_align:
+            self.addHtmlAttr('style', 'text-align:right;')
         self.addJSEvent("onblur", 'formatNumber("%(name)s", %(decimals)s) ' %
             lookup)                 
 

@@ -18,13 +18,14 @@ class ListBox(FormControl):
     size = 1
     multiple = False
 
-    def __init__(self, name=None, caption='', *a, **kwargs):
+    def __init__(self, name=None, caption='', blankOption=False, *a, **kwargs):
         if 'values' in kwargs:
             self.values = list(kwargs['values'])
             del kwargs['values']
         else:
             self.values = []
         FormControl.__init__(self, name, caption, *a, **kwargs)
+        self.blankOption = blankOption
 
     def _get_htmlAttrs(self):
         attrs = FormControl._get_htmlAttrs(self)
