@@ -24,10 +24,7 @@ class Currency(TextBox):
 
     def buildResources(self):
         self.pushResourceUp('js', res('Currency/js/currency_control.js'))
-        if self.hideSign:
-            self.addJSEvent("onchange", 'formatCurrency("%s",0);' % self.name)
-        else:
-            self.addJSEvent("onchange", 'formatCurrency("%s",1);' % self.name)                 
+        self.addJSEvent("onchange", 'formatCurrency(this, %d);' % self.hideSign)
         self.addHtmlAttr('style', 'text-align:right;')
         TextBox.buildResources(self)
 
@@ -36,6 +33,8 @@ class Currency(TextBox):
         if not self.value:
             self.value = self.defaultValue
         if self.value:
+            if isinstance(self.value, str):
+                self.value = Decimal(self.value)
             self.value = '%.02f' % self.value
         return TextBox.draw(self)
 
