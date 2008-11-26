@@ -73,9 +73,9 @@ class ListBox(FormControl):
 
         for value, caption in self.values:
             opts.append('<option value="%s" %s>%s</option>' % (
-                cgi.escape(value, True),
+                cgi.escape(str(value), True),
                 value in values and "selected='selected'" or '',
-                cgi.escape(caption)
+                cgi.escape(str(caption))
             ))
         return '\n'.join(opts)
 
