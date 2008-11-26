@@ -1,4 +1,3 @@
-
 # The contents of this program are subject to the Koar Public License
 # (the "License"); you may not use this file except in compliance with
 # the License. You may obtain a copy of the License at
@@ -10,6 +9,7 @@
 # License.
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
+import cgi
 from FormControl import FormControl
 
 class ListBox(FormControl):
@@ -72,10 +72,10 @@ class ListBox(FormControl):
             values = [str(s) for s in self.value]
 
         for value, caption in self.values:
-            opts.append("<option value='%s' %s>%s</option>" % (
-                value,
+            opts.append('<option value="%s" %s>%s</option>' % (
+                cgi.escape(value, True),
                 value in values and "selected='selected'" or '',
-                caption
+                cgi.escape(caption)
             ))
         return '\n'.join(opts)
 
