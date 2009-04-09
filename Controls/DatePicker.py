@@ -56,7 +56,7 @@ class DatePicker(TextBox):
         self.pushResourceUp('js', 'calendar.js')
         self.pushResourceUp('js', 'calendar-en.js')
         self.pushResourceUp('js', 'calendar-setup.js')
-        change = 'handle_date_blur(this, "%s")' % self.format2
+        change = "handle_date_blur(this, '%s')" % self.format2
         self.addJSEvent('onchange', change)
         TextBox.buildResources(self)
 

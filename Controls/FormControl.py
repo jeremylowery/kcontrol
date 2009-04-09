@@ -1,4 +1,3 @@
-
 # The contents of this program are subject to the Koar Public License
 # (the "License"); you may not use this file except in compliance with
 # the License. You may obtain a copy of the License at
@@ -9,7 +8,6 @@
 # for the specific language governing rights and limitations under the
 # License.
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
-
 
 from kcontrol.Controls.Control import Control
 from kcontrol.Controls.Label import Label
@@ -51,14 +49,11 @@ class FormControl(Control):
 %s
 </script>""" % jscript
         if self.shadowControl:
-            buf = "<input type='hidden' name='%s' value='' />" % self.name
+            buf = '<input type="hidden" name="%s" value="" />' % self.name
         else:
             buf = ''
 
-        return """%s<input type='%s' 
-    %s 
-    %s 
-    %s />%s""" % (
+        return """%s<input type="%s" %s %s %s />%s""" % (
             self.drawShadowControl(),
             self.inputType,
             self.drawValueAttr(),
@@ -69,12 +64,12 @@ class FormControl(Control):
 
     def drawShadowControl(self):
         if self.shadowControl:
-            return "<input type='hidden' name='%s' value='' />" % self.name
+            return '<input type="hidden" name="%s" value="" />' % self.name
         else:
             return ''
 
     def drawValueAttr(self):
-        return "value='%s'" % self.htmlEncode(self.value)
+        return 'value="%s"' % self.htmlEncode(self.value)
 
     def findForm(self):
         """ Seaches up the control hierarchy for the form that the form control is a member of """

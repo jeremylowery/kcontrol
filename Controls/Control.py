@@ -9,7 +9,7 @@
 # License.
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
-__all__ = ['Control', 'ResWatcher']
+__all__ = ["Control", "ResWatcher"]
 
 import os
 import logging
@@ -24,7 +24,7 @@ from kcontrol.res import ResWatcher
 
 import kcontrol.config as cfg
 
-log = logging.getLogger('kcontrol')
+log = logging.getLogger("kcontrol")
 
 
 class Control(object):
@@ -68,14 +68,14 @@ class Control(object):
     calculations before an actual render occurs. This is preferred to putting
     logic inside the draw method, which should only be used for Html output.
 
-    Controls also support resource information. To declare that a control requires
-    a resource, override the buildDeps() method and use the global add_res
-    function. Currently, only js and css resources are widely used, though other
-    uses are available for those that need it.
+    Controls also support resource information. To declare that a control
+    requires a resource, override the buildDeps() method and use the global
+    add_res function. Currently, only js and css resources are widely used,
+    though other uses are available for those that need it.
 
     Controls may also specify resources that the control depends on. These
-    resources propigate up the control hierarchy and are used at the top control.
-    Currently css and javascript resources are used.
+    resources propigate up the control hierarchy and are used at the top
+    control.  Currently css and javascript resources are used.
 
     Generic Resource/Event Propigation
     ----------------------------
@@ -93,8 +93,8 @@ class Control(object):
       table rows)
     - select javascript events propigate up (onload on a control should go in
       the body's on load)
-    - other javascript events propigate down (a form that forces validation should
-      propigate onblur events down to the form controls).
+    - other javascript events propigate down (a form that forces validation
+      should propigate onblur events down to the form controls).
 
     The    mechanism works the following way.
 
@@ -106,18 +106,18 @@ class Control(object):
     Resource declarations and propigation should be done in the buildResources()
     method.
 
-    Mechanisms are provided to automatically handle html attributes and javascript
-    events that propigate up and down. The htmlAttrs attribute of a control
-    dynamically includes attributes that come from up or down.
+    Mechanisms are provided to automatically handle html attributes and
+    javascript events that propigate up and down. The htmlAttrs attribute of a
+    control dynamically includes attributes that come from up or down.
 
     Resource Conflicts
     ==================
 
-    Sometimes a resource may be defined by different controls in a control chain.
-    The control that is closest to the consumer control wins. Resources defined
-    by the consumer control always win. In some cases, like Javascript events
-    different resources should be merged together. These are presented as
-    lists of javascript events.
+    Sometimes a resource may be defined by different controls in a control
+    chain.  The control that is closest to the consumer control wins. Resources
+    defined by the consumer control always win. In some cases, like Javascript
+    events different resources should be merged together. These are presented
+    as lists of javascript events.
     """
 
     showCaption = False             # Should the caption of the control be shown?
@@ -143,34 +143,34 @@ class Control(object):
     # HTML Attributes that should not be quoted for special characters. These
     # are mainly Javascript event handlers
     quoteExceptions = [
-        'onblur',
-        'onclick',
-        'onfocus',
-        'onchange',
-        'onsubmit',
-        'onload',
-        'onunload',
-        'href',
-        'onkeydown',
-        'onkeypress',
-        'onkeyup'
+        "onblur",
+        "onclick",
+        "onfocus",
+        "onchange",
+        "onsubmit",
+        "onload",
+        "onunload",
+        "href",
+        "onkeydown",
+        "onkeypress",
+        "onkeyup"
     ]
 
-    _name = ''
-    _caption = ''
+    _name = ""
+    _caption = ""
     _ds = None
     _parent = None
     _ctrlCount = 0
-    _defaultValue = ''
+    _defaultValue = ""
     _defaultDS = None
-    _relpath = ''
+    _relpath = ""
 
     _mode = None
-    _default_mode = 'form'
+    _default_mode = "form"
 
     _resource_watchers = [ResWatcher]
 
-    def __init__(self, name=None, caption='', pos=None, **kwd):
+    def __init__(self, name=None, caption="", pos=None, **kwd):
         """ Construct a control
 
         All arguments are optional and need not be defined. If no name is given
@@ -199,11 +199,11 @@ class Control(object):
         self._resourcesUp = {}        # Resources that propigate up the chain
         self._resourcesDown = {}    # Resources that propigate down the chain
         for k, v in kwd.items():
-            if k in ('onchange', 'onfocus',
-                     'onblur', 'onkeydown', 'onkeyup', 'onclick'):
+            if k in ("onchange", "onfocus",
+                     "onblur", "onkeydown", "onkeyup", "onclick"):
                 self.addJSEvent(k, v)
-            elif k in ('id', 'class_', 'title', 
-                       'style', 'disabled', 'autocomplete'):
+            elif k in ("id", "class_", "title", 
+                       "style", "disabled", "autocomplete"):
                 self.addHtmlAttr(k, v)
             else:
                 setattr(self, k, v)
@@ -255,7 +255,7 @@ class Control(object):
     """
     def _get_value(self):
         if not self.useValue or self.ds is None:
-            return ''
+            return ""
         try:
             value = self.ds[self.name]
         except KeyError:
@@ -270,7 +270,7 @@ class Control(object):
             
 
     def _set_value(self, value):
-        log.debug('Setting value %s for %s', value, self.name)
+        log.debug("Setting value %s for %s", value, self.name)
         self._ds = kcontrol.ds.SingleValueDS(value)
     value = property(_get_value, _set_value, doc=_doc_value)
 
@@ -281,7 +281,7 @@ class Control(object):
     """
     def _get_ds(self):
         if self._ds is not None:
-            log.debug('Giving assigned DS %s for %s', self._ds, self.name)
+            log.debug("Giving assigned DS %s for %s", self._ds, self.name)
             return self._ds
         elif self._parent:
             return self._parent.ds
@@ -294,7 +294,7 @@ class Control(object):
                 raise ValueError, dir(kcontrol.ds)
 
     def _set_ds(self, ds):
-        log.debug('setting DS for %s to %s', self.name, ds)
+        log.debug("setting DS for %s to %s", self.name, ds)
         if type(ds) is str:
             ds = kcontrol.ds.SingleValueDS(ds)
 
@@ -328,20 +328,20 @@ class Control(object):
         unless overridden.
         """
         return {
-            'inline_js' : 'join',
-            'js' : 'join',
-            'inline_css' : 'join',
-            'css' : 'join',
-            'js_onload' : 'join',
-            'js_onblur' : 'join',
-            'js_onchange' : 'join',
-            'js_onfocus' : 'join',
-            'js_onsubmit' : 'join',
-            'js_onclick' : 'join',
-            'js_onkeypress' : 'join',
-            'js_onkeyup' : 'join',
-            'js_onkeydown' : 'join',
-            'js_onclose' : 'join'
+            "inline_js" : "join",
+            "js" : "join",
+            "inline_css" : "join",
+            "css" : "join",
+            "js_onload" : "join",
+            "js_onblur" : "join",
+            "js_onchange" : "join",
+            "js_onfocus" : "join",
+            "js_onsubmit" : "join",
+            "js_onclick" : "join",
+            "js_onkeypress" : "join",
+            "js_onkeyup" : "join",
+            "js_onkeydown" : "join",
+            "js_onclose" : "join"
         }
 
     def _addResourceToChain(self, chain, res_type, res):
@@ -349,15 +349,15 @@ class Control(object):
             resource behavior.
         """
         behavior = self.resourceBehaviors().get(res_type, 'single')
-        if behavior == 'join':
+        if behavior == "join":
             try:
                 chain[res_type].append(res)
             except KeyError:
                 chain[res_type] = [res]
-        elif behavior == 'single':
+        elif behavior == "single":
                 chain[res_type] = res
         else:
-            raise ValueError, 'Invalid resource behavior "%s"' % behavior
+            raise ValueError, "Invalid resource behavior %r" % behavior
 
         for c in self._resource_watchers:
             c(res_type, self.relurl(res))
@@ -380,8 +380,8 @@ class Control(object):
         return res
 
     def matchResource(self, res_pat):
-        """ Find matches for a given resource pattern. Current fnmatch (glob-style)
-            matching is supported.
+        """ Find matches for a given resource pattern. Current fnmatch
+        (glob-style) matching is supported.
         """
         res = fnmatch.filter(self._resources.keys(), res_pat)
 
@@ -425,9 +425,9 @@ class Control(object):
             raise NotFoundError, "No resource for resource type '%s'" % res_type
 
     def propResources(self):
-        """ These are resources that the control will accept from other controls as being
-            propigated. If the control should accept all controls, set the
-            acceptAllResources attribute to True
+        """ These are resources that the control will accept from other
+        controls as being propigated. If the control should accept all
+        controls, set the acceptAllResources attribute to True
         """
         return [
             'inline_js',
@@ -476,8 +476,9 @@ class Control(object):
                 return UniqueList(res + pres)
 
     _doc_resources = """
-        Resources are javascript and css files that propigate up the control chain.
-        If a control has no parent, then the resources are assigned to it.
+        Resources are javascript and css files that propigate up the control
+        chain.  If a control has no parent, then the resources are assigned to
+        it.
     """
     def _get_resources(self):
         nres = {}
@@ -487,9 +488,9 @@ class Control(object):
     resources = property(_get_resources, doc=_doc_resources)
 
     _doc_htmlAttrs = """
-        Html Attributes that are assigned to 'this' element. This may not be used
-        for complex composite controls, and if so then the attributes should be
-        assigned to the logical Html element.
+        Html Attributes that are assigned to 'this' element. This may not be
+        used for complex composite controls, and if so then the attributes
+        should be assigned to the logical Html element.
     """
     def _get_htmlAttrs(self):
         res = self.matchResource("html_*")
@@ -557,9 +558,9 @@ class Control(object):
         return self.joinHtmlAttrs(self.htmlAttrs)
 
     def joinHtmlAttrs(self, attrs):
-        """Returns a string containing the the Html attributes given in the attrs
-           parameter. If certain entries in attrs are javascript event handlers
-           then the contents are not html encoded.
+        """Returns a string containing the the Html attributes given in the
+        attrs parameter. If certain entries in attrs are javascript event
+        handlers then the contents are not html encoded.
         """
         tar = []
         for k, v in attrs.items():
@@ -567,23 +568,22 @@ class Control(object):
                 v = self.htmlEncode(v)
             if k[-1] == '_':
                 k = k[:-1]
-            tar.append("%s='%s'" % (k, v))
+            tar.append('%s="%s"' % (k, v))
         return "\n ".join(tar)
-
 
     ## Rendering Methods ##
     def preRender(self):
-        """The pre-rendering step is executed right before the control is drawn.
-           In cases where certain calcuations must occur before a control is invoked,
-           and after the control is created, those calculations should be placed
-           in this method.
+        """The pre-rendering step is executed right before the control is
+        drawn.  In cases where certain calcuations must occur before a control
+        is invoked, and after the control is created, those calculations should
+        be placed in this method.
         """
         self.buildResources()
 
     def render(self, ds=None):
         """Rendering a control generates the output of the control. Inherited
-           controls should not override this method unless the way the control
-           functions is dramatically changed. Use draw() and preRender()
+        controls should not override this method unless the way the control
+        functions is dramatically changed. Use draw() and preRender()
         """
         if ds is not None:
             self.ds = ds
@@ -592,8 +592,8 @@ class Control(object):
 
     def draw(self):
         """Override this method to control how the control is drawn in Html.
-           Nearly all controls will override this method, either directly or
-           by the overriding of parent controls.
+        Nearly all controls will override this method, either directly or by
+        the overriding of parent controls.
         """
         return self.value
 
@@ -698,8 +698,7 @@ DataSource: %s (%s)
             ['&', '&amp;'],
             ['<', '&lt;'],
             ['>', '&gt;'],
-            ['"', '&quot;'],
-            ["'", '&apos;']
+            ['"', '&quot;']
         ]
         for code in codes:
             s = string.replace(s, code[0], code[1])
