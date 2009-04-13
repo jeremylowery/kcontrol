@@ -42,7 +42,7 @@ class Number(TextBox):
                   'name' : self.name}
         if self.right_align:
             self.addHtmlAttr('style', 'text-align:right;')
-        self.addJSEvent("onblur", 'formatNumber("%(name)s", %(decimals)s) ' %
+        self.addJSEvent("onblur", "formatNumber('%(name)s', %(decimals)s) " %
             lookup)                 
 
         if self.value is None:
