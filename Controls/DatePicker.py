@@ -66,7 +66,10 @@ class DatePicker(TextBox):
         if not self.value or isinstance(self.value, str):
             pass
         else:
-            self.value = self.value.strftime(self.format)
+            try:
+                self.value = self.value.strftime(self.format)
+            except ValueError:
+                pass
 
         buf = TextBox.draw(self)
         if self.showSpinner:
