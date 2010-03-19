@@ -14,7 +14,8 @@ os.chdir(os.path.abspath(os.path.join(__file__, "..")))
 setup(
     name="kcontrol",
     author="Jeremy Lowery",
-    author_email="jeremy@koarcg.com",
+    author_email="jeremy@thensys.com",
     url="http://bitbucket.org/jslowery/kcontrol",
     zip_safe=False,
+    version="0.1.1",
     packages = pkgs)
