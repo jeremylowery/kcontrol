@@ -4,7 +4,7 @@ import os
 
 from setuptools import setup, find_packages
 
-pkgs = ['kcontrol']
+pkgs = ['kcontrol', 'kcontrol.Controls', 'kcontrol.util']
 
 for scheme in INSTALL_SCHEMES.values():
     scheme['data'] = scheme['purelib']
