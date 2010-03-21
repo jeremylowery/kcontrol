@@ -1,21 +1,31 @@
 #!/usr/bin/env python
-from distutils.command.install import INSTALL_SCHEMES
 import os
 
-from setuptools import setup, find_packages
+from distutils.core import setup
 
-pkgs = ['kcontrol', 'kcontrol.Controls', 'kcontrol.util']
-
-for scheme in INSTALL_SCHEMES.values():
-    scheme['data'] = scheme['purelib']
 
 os.chdir(os.path.abspath(os.path.join(__file__, "..")))
 
 setup(
     name="kcontrol",
+    version="0.1.1",
+    provides=["kcontrol"],
+    description="Simple html control library",
+    license="MIT License",
     author="Jeremy Lowery",
     author_email="jeremy@thensys.com",
     url="http://bitbucket.org/jslowery/kcontrol",
-    zip_safe=False,
-    version="0.1.1",
-    packages = pkgs)
+    platforms="All",
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Environment :: Web Environment",   
+        "Intended Audience :: Developers",
+        "Programming Language :: Python",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: All"
+    ],
+    packages = [
+        'kcontrol',
+        'kcontrol.Controls', 
+        'kcontrol.util']
+    )
