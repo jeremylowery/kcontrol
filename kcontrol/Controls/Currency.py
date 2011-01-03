@@ -34,7 +34,9 @@ class Currency(TextBox):
             self.value = self.defaultValue
         if self.value:
             if isinstance(self.value, str):
-                self.value = Decimal(self.value)
+                self.value = Decimal(self.value
+                    .replace('$', '')
+                    .replace(',', ''))
             self.value = '%.02f' % self.value
         return TextBox.draw(self)
 

@@ -18,5 +18,5 @@ class Year(ListBox):
         ListBox.__init__(self, name, caption, *a, **k)
         year = datetime.datetime.now().year
         for i in range(year-10, year+10):
-            self.values[i] = i
+            self.values.append((i, i))
         self.defaultValue = year

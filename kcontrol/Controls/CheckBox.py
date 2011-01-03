@@ -12,7 +12,7 @@
 
 __all__ = ['CheckBox']
 from FormControl import FormControl
-import cs.lang
+from kcontrol.unrepr import unrepr
 
 class CheckBox(FormControl):
     inputType = 'checkbox'
@@ -22,7 +22,7 @@ class CheckBox(FormControl):
         if not self.value:
             self.value = self.defaultValue
             
-        if cs.lang.unrepr(self.value):
+        if unrepr(self.value):
             value = " checked='checked' "
         else:
             value = ''
