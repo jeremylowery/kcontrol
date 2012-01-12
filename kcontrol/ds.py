@@ -12,13 +12,35 @@
 
 import cgi
 import copy
-import kg.mapping
 import threading
 import UserDict
 
 __all__ = ['DS', 'SingleValueDS', 'RepeatDS']
 
-store = kg.mapping.ThreadDict()
+
+
+class ThreadDict(UserDict.DictMixin):
+    """ Dictionary-like thread local storage. """
+    def __init__(self):
+        self._local = threading.local()
+        self._keys = []
+
+    def __getitem__(self, key):
+        try:
+            return getattr(self._local, key)
+        except AttributeError:
+            raise KeyError, key
+
+    def __setitem__(self, key, value):
+        return setattr(self._local, key, value)
+
+    def __delitem__(self, key):
+        return delattr(self._local, key)
+
+    def keys(self):
+        return [c for c in dir(self._local) if not c.startswith('_')]
+
+store = ThreadDict()
 
 def from_fs(fs=None):
     global store
