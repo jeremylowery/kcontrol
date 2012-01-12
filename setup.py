@@ -8,7 +8,7 @@ os.chdir(os.path.abspath(os.path.join(__file__, "..")))
 
 setup(
     name="kcontrol",
-    version="0.1.1",
+    version="0.1.2",
     provides=["kcontrol"],
     description="Simple html control library",
     license="MIT License",
