@@ -33,8 +33,8 @@ class Currency(TextBox):
         if not self.value:
             self.value = self.defaultValue
         if self.value:
-            if isinstance(self.value, basestring):
-                self.value = Decimal(self.value
+            if not isinstance(self.value, (Decimal, int, float)):
+                self.value = Decimal(str(self.value)
                     .replace('$', '')
                     .replace(',', ''))
             self.value = '%.02f' % self.value
