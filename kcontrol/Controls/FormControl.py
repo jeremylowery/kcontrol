@@ -16,6 +16,7 @@ class FormControl(Control):
     inputType = 'text'
     shadowControl = False
     showCaption = True
+    tabindex = None
 
     def _get_htmlID(self):
         return self.name
@@ -27,6 +28,8 @@ class FormControl(Control):
             attrs['id'] = self.htmlID
         if 'name' not in attrs:
             attrs['name'] = self.name
+        if 'tabindex' not in attrs and self.tabindex is not None:
+            attrs['tabindex'] = self.tabindex
         return attrs
     htmlAttrs = property(_get_htmlAttrs, doc=Control._doc_htmlAttrs)
 
