@@ -16,7 +16,12 @@
 __all__ = ['Colorizer', 'colorize']
 
 # Imports
-import cgi, string, sys, cStringIO
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from io import StringIO
+
+import cgi, string, sys
 import keyword, token, tokenize
 
 
@@ -63,23 +68,22 @@ class Colorizer:
 
         # parse the source and write it
         self.pos = 0
-        text = cStringIO.StringIO(self.raw)
+        text = StringIO(self.raw)
         self.out.write('<pre><font face="Lucida,Courier New">')
         try:
             tokenize.tokenize(text.readline, self)
-        except tokenize.TokenError, ex:
+        except tokenize.TokenError as ex:
             msg = ex[0]
             line = ex[1][0]
             self.out.write("<h3>ERROR: %s</h3>%s\n" % (
                 msg, self.raw[self.lines[line]:]))
         self.out.write('</font></pre>')
 
-    def __call__(self, toktype, toktext, (srow,scol), (erow,ecol), line):
+    def __call__(self, toktype, toktext, s, e, line):
         """ Token handler.
         """
-        if 0:
-            print "type", toktype, token.tok_name[toktype], "text", toktext,
-            print "start", srow,scol, "end", erow,ecol, "<br>"
+        srow, scol = s
+        erow, ecol = e
 
         # calculate new positions
         oldpos = self.pos
@@ -117,9 +121,7 @@ class Colorizer:
         self.out.write('</font>')     
 
 def colorize(s):
-	buf = cStringIO.StringIO()
-	Colorizer(s, buf).format(None, None)
-	buf.seek(0)
-	return buf.getvalue()
-	
-	
+    buf = StringIO()
+    Colorizer(s, buf).format(None, None)
+    buf.seek(0)
+    return buf.getvalue()
