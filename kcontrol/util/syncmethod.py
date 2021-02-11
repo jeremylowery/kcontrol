@@ -28,10 +28,7 @@ class syncmethod(object):
         return SyncMethodWrapper(inst, self._method, lock)
 
     def __set__(self, inst, value, type=None):
-        raise AttributeError, self._method.__name__
-
-    #def __del__(self):
-    #    raise AttributeError, self._method.__name__
+        raise AttributeError(self._method.__name__)
 
 class SyncMethodWrapper:
     def __init__(self, inst, method, lock):
@@ -52,7 +49,7 @@ if __name__ == '__main__':
             self.value = 0
         def doit(self):
             self.value = self.value + 1
-            print self.value
+            print(self.value)
         doit = syncmethod(doit)
 
     def slam(inst):

@@ -11,25 +11,32 @@
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
 import cgi
+import collections
 import copy
 import threading
-import UserDict
 
 __all__ = ['DS', 'SingleValueDS', 'RepeatDS']
 
 
 
-class ThreadDict(UserDict.DictMixin):
+class ThreadDict(collections.MutableMapping):
     """ Dictionary-like thread local storage. """
     def __init__(self):
         self._local = threading.local()
         self._keys = []
 
+    def __len__(self):
+        return len(self.keys())
+
+    def __iter__(self):
+        for i in self.keys():
+            yield i
+
     def __getitem__(self, key):
         try:
             return getattr(self._local, key)
         except AttributeError:
-            raise KeyError, key
+            raise KeyError(key)
 
     def __setitem__(self, key, value):
         return setattr(self._local, key, value)
@@ -78,7 +85,7 @@ class DS(object):
 			try:
 				attr = getattr(self, '_get_%s' % name)
 			except AttributeError:
-				raise KeyError, name
+				raise KeyError(name)
 			return attr()
 	
 	def __setitem__(self, key, item):

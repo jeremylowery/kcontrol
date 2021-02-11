@@ -50,7 +50,7 @@ class ControlTestCase(unittest.TestCase):
         self.assertEquals(ResWatcher.css, ['kcontrol/res/date/res/css/date.css',
             'kcontrol/res/css/form.css'])
 
-        print ResWatcher.js
-        print ResWatcher.css
+        print(ResWatcher.js)
+        print(ResWatcher.css)
 if __name__ == '__main__':
     unittest.main()

@@ -1,4 +1,4 @@
-from kcontrol.util import UniqueList
+from .util import UniqueList
 
 class ResWatcher(object):
     _css = UniqueList()

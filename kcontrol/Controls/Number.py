@@ -84,4 +84,4 @@ class Number(TextBox):
         elif self.decimals > 0:
             return "%%.0%sf" % self.decimals
         else:
-            raise ValueError, 'decimals must be a natural number' 
+            raise ValueError('decimals must be a natural number')

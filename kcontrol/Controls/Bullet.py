@@ -51,9 +51,8 @@ class Bullet(RepeaterControl):
         try:
             return self.modeMap[self._mode]
         except KeyError:
-            raise ValueError, "Invalid mode \"%s\" Valid modes are  disc, square, circle, number, lower, upper, roman_lower or roman_upper" % self.mode
-    
-    
+            raise ValueError("Invalid mode \"%s\" Valid modes are  disc, square, circle, number, lower, upper, roman_lower or roman_upper" % self.mode)
+
     def drawHeader(self):
         return "<%s type='%s' %s>" % (self.mode, self.getType(), self.drawHtmlAttrs())
         

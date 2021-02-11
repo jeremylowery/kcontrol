@@ -23,7 +23,6 @@ class RepeaterControl(CompositeControl):
             children = self.ds.children
         except AttributeError:
             return
-        #raise str(self.ds)
         for ctrl_ds in children:
             ctrl = self.makeRepeatControl()
             ctrl.ds = ctrl_ds

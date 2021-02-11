@@ -98,6 +98,6 @@ def parse_function_call(val, FUNC_CALL_EXP=FUNC_CALL_EXP):
         args = unrepr("(%s,)" % fun_args)
         return fun_name, args
     elif not re.match('\w+', val):
-        raise ValueError, 'Invalid expression %r' % val
+        raise ValueError('Invalid expression %r' % val)
     else:
         return val, ()

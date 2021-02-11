@@ -10,14 +10,12 @@ import decimal
 import datetime
 import logging
 import cherrypy
-import kg.cptools
 import kg.procutils
 import kg.web_dispatch
 import kg.static_dispatch
 import kg.template
 import kcontrol
-from kcontrol.url import res
-kg.cptools.debug('debug.log')
+from .url import res
 mount = kg.web_dispatch.Mounter()
 
 # Mako Template interface

@@ -291,7 +291,7 @@ class Control(object):
             try:
                 return kcontrol.ds.store
             except:
-                raise ValueError, dir(kcontrol.ds)
+                raise ValueError(dir(kcontrol.ds))
 
     def _set_ds(self, ds):
         log.debug("setting DS for %s to %s", self.name, ds)
@@ -357,7 +357,7 @@ class Control(object):
         elif behavior == "single":
                 chain[res_type] = res
         else:
-            raise ValueError, "Invalid resource behavior %r" % behavior
+            raise ValueError("Invalid resource behavior %r" % behavior)
 
         for c in self._resource_watchers:
             c(res_type, self.relurl(res))
@@ -398,7 +398,7 @@ class Control(object):
             except KeyError:
                 if self._parent:
                     return self._parent.getDownResource(res_type, idx+1)
-                raise NotFoundError, "No resource for resource type '%s'" % res_type
+                raise NotFoundError("No resource for resource type '%s'" % res_type)
         elif behavior == 'join':
             try:
                 res = self._resourcesDown[res_type]
@@ -412,17 +412,17 @@ class Control(object):
             else:
                 pres = []
             if not pres and not res:
-                raise NotFoundError, "No resource for resource type '%s'" % res_type
+                raise NotFoundError("No resource for resource type '%s'" % res_type)
             try:
                 return UniqueList(res + pres), idx
             except TypeError:
-                raise str(res) + str(pres)
+                raise TypeError(str(res) + str(pres))
 
     def getUpResource(self, res_type, idx=1):
         try:
             return self._resourcesUp[res_type], idx
         except KeyError:
-            raise NotFoundError, "No resource for resource type '%s'" % res_type
+            raise NotFoundError("No resource for resource type '%s'" % res_type)
 
     def propResources(self):
         """ These are resources that the control will accept from other
@@ -450,7 +450,7 @@ class Control(object):
             try:
                 return self._resources[res_type]
             except KeyError:
-                raise NotFoundError, "No resource for resource type '%s'" % res_type
+                raise NotFoundError("No resource for resource type '%s'" % res_type)
         behavior = self.resourceBehaviors().get(res_type, 'single')
         if behavior == 'single':
             if res_type in self._resources:
@@ -460,7 +460,7 @@ class Control(object):
                     return self._parent.getDownResource(res_type)[0]
                 except NotFoundError:
                     pass
-            raise NotFoundError, "No resource for resource type '%s'" % res_type
+            raise NotFoundError("No resource for resource type '%s'" % res_type)
         elif behavior == 'join':
             res = self._resources.get(res_type, [])
             if self._parent:
@@ -471,7 +471,7 @@ class Control(object):
             else:
                 pres = []
             if not res and not pres:
-                raise NotFoundError, "No resource for resource type '%s'" % res_type
+                raise NotFoundError("No resource for resource type '%s'" % res_type)
             else:
                 return UniqueList(res + pres)
 
@@ -621,7 +621,7 @@ class Control(object):
         try:
             getattr(self, mode)
         except AttributeError:
-            raise AttributeError, "Control has no such mode: %s" % mode
+            raise AttributeError("Control has no such mode: %s" % mode)
         else:
             self._mode = mode
     mode = property(_get_mode, _set_mode, doc=_doc_mode)

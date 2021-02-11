@@ -26,7 +26,7 @@ def count():
 
 class NumberTestCase(unittest.TestCase):
     def testNumber(self):
-        print >> sys.stderr, count()
+        print(count())
         # Basic value test
         ctrl = Number('total')
         self.assertEquals(str(ctrl),
@@ -34,7 +34,7 @@ class NumberTestCase(unittest.TestCase):
             """id='total' name='total' onblur='formatNumber("total", 2) ' />""")
 
     def testNumberDecimals(self):
-        print >> sys.stderr, count()
+        print(count())
         # Basic value test
         ctrl = Number('total')
         ctrl.decimals = 4
@@ -43,7 +43,7 @@ class NumberTestCase(unittest.TestCase):
             """id='total' name='total' onblur='formatNumber("total", 4) ' />""")
     
     def testNumberView(self):
-        print >> sys.stderr, count()
+        print(count())
         ctrl = Number('total')
         ctrl.decimals = 4
         self.assertEquals(ctrl.view, '')
@@ -64,7 +64,7 @@ class NumberTestCase(unittest.TestCase):
         self.assertEquals(ctrl.view, '')
 
     def testNumberMode(self):
-        print >> sys.stderr, count()
+        print(count())
         ctrl = Number('total')
         ctrl.decimals = 4
         ctrl.mode = 'VIEW'

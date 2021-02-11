@@ -35,7 +35,7 @@ class TextArea(FormControl):
         if self.size == 1:
             return FormControl.draw(self)
         if self.mask:
-            raise SystemError, "A control cannot have a size greater than one and a mask property of True"
+            raise ValueError("A control cannot have a size greater than one and a mask property of True")
         
         if self.value:
             value = self.value

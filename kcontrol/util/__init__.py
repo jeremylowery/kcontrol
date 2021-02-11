@@ -13,12 +13,11 @@
 
 __all__ = ['syncmethod', 'fs2val', 'dict2qs', 'HasIcon', 'OrderedDict', 'UniqueList', 'LazyList', 'Colorizer']
 
-from OrderedDict import OrderedDict
-from UniqueList import UniqueList
-from LazyList import LazyList
-from Colorizer import Colorizer
-from syncmethod import syncmethod
-
+from .Colorizer import Colorizer
+from .LazyList import LazyList
+from .OrderedDict import OrderedDict
+from .syncmethod import syncmethod
+from .UniqueList import UniqueList
 
 def get_kcontrol_resources(search):
     """ Retrieves all of the javascript and css resources

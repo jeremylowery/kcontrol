@@ -49,7 +49,7 @@ class CompositeControl(Control):
                         return ctrl.getUpResource(res_type, idx+1)
                     except NotFoundError:
                         pass
-                raise NotFoundError, "No resource for resource type '%s'" % res_type
+                raise NotFoundError("No resource for resource type '%s'" % res_type)
         elif behavior == 'join':
             try:
                 res = self._resourcesUp[res_type]
@@ -62,7 +62,7 @@ class CompositeControl(Control):
                 except NotFoundError:
                     pass
             if not pres and not res:
-                raise NotFoundError, "No resource for resource type '%s'" % res_type
+                raise NotFoundError("No resource for resource type '%s'" % res_type)
             return UniqueList(res + pres), idx
 
     def getResource(self, res_type):
@@ -75,7 +75,7 @@ class CompositeControl(Control):
             try:
                 return self._resources[res_type]
             except KeyError:
-                raise NotFoundError, "No resource for resource type '%s'" % res_type
+                raise NotFoundError("No resource for resource type '%s'" % res_type)
         
         behavior = self.resourceBehaviors().get(res_type, 'single')
         if behavior == 'single':
@@ -91,7 +91,7 @@ class CompositeControl(Control):
                     return ctrl.getUpResource(res_type)[0]
                 except NotFoundError:
                     pass
-            raise NotFoundError, "No resource for resource type '%s'" % res_type
+            raise NotFoundError("No resource for resource type '%s'" % res_type)
         elif behavior == 'join':
             res = self._resources.get(res_type, [])
             if self._parent:
@@ -108,7 +108,7 @@ class CompositeControl(Control):
                     continue
             
             if not res and not pres:
-                raise NotFoundError, "No resource for resource type '%s'" % res_type
+                raise NotFoundError("No resource for resource type '%s'" % res_type)
             else:
                 return UniqueList(res + pres)
 
@@ -128,14 +128,14 @@ class CompositeControl(Control):
         try:
             self.controlByName(ctrl.name)
             if self._ctrls_unique:
-                raise 'DuplicateError', ("A control with the name '%s' is " + \
-                    "already registered with the composite control %s") % (
-                    ctrl.name, self.name)
+                raise DuplicateError("A control with the name '%s' is " + \
+                    "already registered with the composite control %s" % (
+                    ctrl.name, self.name))
         except IndexError:
             pass
         if ctrl in self._ctrls:
-            raise 'DuplicateError', ("A control with the name '%s' is already " +
-                "registered with the composite control %s") % (ctrl.name, self.name)
+            raise DuplicateError(("A control with the name '%s' is already " +
+                "registered with the composite control %s") % (ctrl.name, self.name))
         self._ctrls.append(ctrl)
         ctrl._parent = self
 
@@ -147,7 +147,7 @@ class CompositeControl(Control):
         for ctrl in self._ctrls:
             if ctrl.name == name:
                 return ctrl
-        raise IndexError, "Control with name '%s' not found" % name
+        raise IndexError("Control with name '%s' not found" % name)
         
     def drawControls(self):
         tar = []
@@ -186,3 +186,6 @@ class CompositeControl(Control):
         for ctrl in self._ctrls:
             buf = buf + '\t' + ctrl.__repr__() + '\n'
         return buf
+
+class DuplicateError(Exception):
+    pass
