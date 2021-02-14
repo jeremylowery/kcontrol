@@ -9,7 +9,6 @@
 # License.
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
-from kcontrol.util import OrderedDict
 from kcontrol.Controls.ListBox import ListBox
 import datetime
 

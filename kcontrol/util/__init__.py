@@ -11,9 +11,8 @@
 # License.
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
-__all__ = ['syncmethod', 'fs2val', 'dict2qs', 'HasIcon', 'OrderedDict', 'UniqueList']
+__all__ = ['syncmethod', 'fs2val', 'dict2qs', 'HasIcon', 'UniqueList']
 
-from .OrderedDict import OrderedDict
 from .syncmethod import syncmethod
 from .UniqueList import UniqueList
 

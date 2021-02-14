@@ -13,7 +13,7 @@
 
 import unittest
 
-from mx.DateTime import now
+from datetime import datetime
 from kcontrol import TimePicker
 import kcontrol.config as cfg
 import datetime
@@ -24,7 +24,7 @@ class TimePickerTestCase(unittest.TestCase):
         ctrl = TimePicker('appointment_time')
         ctrl.defaultNow = True
         ctrl.showAMorPM = False
-        time = "%i:%s" % (int(now().strftime("%I")), now().strftime("%M"))
+        time = "%i:%s" % (int(datetime.now().strftime("%I")), datetime.now().strftime("%M"))
      
         self.assertEquals(str(ctrl),
             """<input type='text' value='%s' id='appointment_time' name='appointment_time' onblur='handle_time_blur(this)' onkeydown='{time_help(this, event); if(event.ctrlKey == true) return false;}' />
@@ -38,7 +38,7 @@ class TimePickerTestCase(unittest.TestCase):
         # Basic value test
         ctrl = TimePicker('appointment_time')
         ctrl.defaultNow = True
-        time = "%i:%s %s" % (int(now().strftime("%I")), now().strftime("%M"), now().strftime("%p"))
+        time = "%i:%s %s" % (int(datetime.now().strftime("%I")), datetime.now().strftime("%M"), datetime.now().strftime("%p"))
         self.assertEquals(str(ctrl),
             """<input type='text' value='%s' id='appointment_time' name='appointment_time' onblur='handle_time_blur(this)' onkeydown='{time_help(this, event); if(event.ctrlKey == true) return false;}' />
     <script type="text/javascript">
