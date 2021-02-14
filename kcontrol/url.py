@@ -11,8 +11,12 @@
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 ###############################################################################
 
-import urlparse
-import config
+try:
+    from urlparse import urljoin
+except ImportError:
+    from urllib.parse import urljoin
+
+from . import config
 
 def res(rel_path):
-    return urlparse.urljoin(config.get('res.path', '/'), rel_path)
+    return urljoin(config.get('res.path', '/'), rel_path)
