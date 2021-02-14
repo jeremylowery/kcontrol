@@ -10,11 +10,27 @@
 # for the specific language governing rights and limitations under the
 # License.
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
+import sys
+
+
+# We use byte strings in python 2 and strings in python 3
+if sys.version_info[0] < 3:
+    from cStringIO import StringIO
+else:
+    from io import StringIO
 
 __all__ = ['syncmethod', 'fs2val', 'dict2qs', 'HasIcon', 'UniqueList']
 
 from .syncmethod import syncmethod
 from .UniqueList import UniqueList
+
+def str2bool(value):
+    if not isinstance(value, str):
+        return bool(value)
+    value = value.upper().strip()
+    if value in ('FALSE', 'NO', 'N', 'DISABLED', '0', ''):
+        return False
+    return bool(value)
 
 def get_kcontrol_resources(search):
     """ Retrieves all of the javascript and css resources
