@@ -31,6 +31,7 @@ def deploy(revision='tip'):
     # Build a source distribution
     with lcd("/tmp/kcontrol"):
         local("python setup.py --quiet sdist")
+        local("python3 setup.py --quiet sdist")
 
     # Send to remote host
     tarball = "/tmp/kcontrol/dist/kcontrol-%s.tar.gz" % version
