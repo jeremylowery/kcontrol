@@ -1,4 +1,3 @@
-
 import unittest
 
 from .Info import Info

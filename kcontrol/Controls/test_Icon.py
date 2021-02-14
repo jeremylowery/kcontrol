@@ -1,4 +1,3 @@
-
 import unittest
 
 from .Icon import Icon
