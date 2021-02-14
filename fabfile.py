@@ -12,6 +12,7 @@ def get_version():
 def update(revision='tip'):
     """ Update the development system. """
     local("python setup.py install --prefix=/usr/local")
+    local("python3 setup.py install --prefix=/usr/local")
     local("rm -rf build")
 
 def deploy(revision='tip'):

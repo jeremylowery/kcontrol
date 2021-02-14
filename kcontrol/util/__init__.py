@@ -11,10 +11,8 @@
 # License.
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
-__all__ = ['syncmethod', 'fs2val', 'dict2qs', 'HasIcon', 'OrderedDict', 'UniqueList', 'LazyList', 'Colorizer']
+__all__ = ['syncmethod', 'fs2val', 'dict2qs', 'HasIcon', 'OrderedDict', 'UniqueList']
 
-from .Colorizer import Colorizer
-from .LazyList import LazyList
 from .OrderedDict import OrderedDict
 from .syncmethod import syncmethod
 from .UniqueList import UniqueList
@@ -84,33 +82,3 @@ class HasIcon(object):
                 return 'Skin/res/images/icons/%s/%s' % (pats[p], self.data[p])
         return None
     icon = property(_get_icon)
-
-"""
-from UserList import UserList
-
-class LazyList(UserList):
-    def __init__(self, eval, *a, **k):
-        UserList.__init__(self, *a, **k)
-        self._lazy = {}
-        self._evalFunc = eval
-
-    def __getitem__(self, item):
-        try:
-            return self._lazy[item]
-        except KeyError:
-            self._lazy[item] = self._evalFunc(self.data[item])
-            return self._lazy[item]
-    def __delitem__(self, item):
-        UserList.__delitem__(self, item)
-        try:
-            del self._lazy[item]
-        except KeyError:
-            pass
-
-    def __setitem__(self, item, value):
-        try:
-            del self._lazy[item]
-        except KeyError:
-            pass
-        UserList.__setitem__(self, item, value)
-"""
