@@ -10,25 +10,21 @@
 # License.
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
-
-
 import unittest
 
-from kcontrol import Button
-import kcontrol.config as cfg
-
+from .Button import Button
 
 class ButtonTestCase(unittest.TestCase):
     def testButton(self):
         # Basic value test
         ctrl = Button('add_form_button')
         ctrl.defaultValue = 'Foo'
-        self.assertEquals(str(ctrl),
+        self.assertEqual(str(ctrl),
             "<input type='button' value='Submit' id='add_form_button' name='add_form_button'  />")
 
         ctrl = Button('foo')
         ctrl.submit = True
-        self.assertEquals(str(ctrl),
+        self.assertEqual(str(ctrl),
             "<input type='submit' value='Submit' id='foo' name='foo'  />")
 
 if __name__ == '__main__':

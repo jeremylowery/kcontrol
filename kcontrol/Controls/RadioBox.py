@@ -1,6 +1,5 @@
-import cgi
-import cStringIO
-from FormControl import FormControl
+from kcontrol.util import StringIO
+from .FormControl import FormControl
 
 class RadioBox(FormControl):
     def __init__(self, name, value2, caption='', *a, **kwargs):
@@ -16,13 +15,13 @@ class RadioBox(FormControl):
         return '%s_%s' % (self.name, self.value2)
 
     def draw(self):
-        buf = cStringIO.StringIO()
+        buf = StringIO()
         jscript = '\n'.join(self._resourcesUp.get('inline_js', []))
         if jscript:
             buf.write("<script langauge='javascript'>\n")
             buf.write(jscript)
             buf.write("</script>")
-        
+
         buf.write("<input type='radio' value='%s' %s" % (self.value2,
                     self.drawHtmlAttrs()))
 

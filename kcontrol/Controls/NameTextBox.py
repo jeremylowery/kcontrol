@@ -33,23 +33,22 @@ class NameTextBox(FormControl, CompositeControl):
     def buildResources(self):
         CompositeControl.buildResources(self)
         self.pushResourceUp('js', 'name_ctrl.js')
-        
+
     def buildControls(self):
         CompositeControl.buildControls(self)
-        
+
         self.addControl(Hidden(self.titleName, ''))
         self.addControl(Hidden(self.firstName, ''))
         self.addControl(Hidden(self.middleName, ''))
         self.addControl(Hidden(self.lastName, ''))
         self.addControl(Hidden(self.suffixName, ''))
-        #self.addControl(TextBox(self.name, ''))
-        
+
     def preRender(self):
         CompositeControl.preRender(self)
         self.addJSEvent(
             'onchange', "this.name_ctrl.elemSync()"
         )
-        
+
     def draw(self):
         return """%(elems)s
                   %(control)s
@@ -68,8 +67,8 @@ class NameTextBox(FormControl, CompositeControl):
                 'middle' : self.middleName,
                 'last' : self.lastName,
                 'suffix' : self.suffixName
-            }    
-    
+            }
+
     def drawTextBox(self):
         return """<input type='text' 
     name='%s' 
@@ -83,4 +82,4 @@ class NameTextBox(FormControl, CompositeControl):
             self.drawJSEvents(),
             self.value
         )
-        
+

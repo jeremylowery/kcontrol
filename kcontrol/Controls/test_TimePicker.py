@@ -1,22 +1,8 @@
-###############################################################################
-# The contents of this program are subject to the Koar Public License
-# (the "License"); you may not use this file except in compliance with
-# the License. You may obtain a copy of the License at
-# http://www.koarcg.com/license
-# 
-# Software distributed under the License is distributed on an "AS IS" basis,
-# WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-# for the specific language governing rights and limitations under the
-# License.
-# included LICENSE.txt file for more information. Copyright 2007 KCG.
-###############################################################################
-
+import datetime
 import unittest
 
 from datetime import datetime
-from kcontrol import TimePicker
-import kcontrol.config as cfg
-import datetime
+from .TimePicker import TimePicker
 
 class TimePickerTestCase(unittest.TestCase):
     def testTimePicker(self):
@@ -25,21 +11,20 @@ class TimePickerTestCase(unittest.TestCase):
         ctrl.defaultNow = True
         ctrl.showAMorPM = False
         time = "%i:%s" % (int(datetime.now().strftime("%I")), datetime.now().strftime("%M"))
-     
-        self.assertEquals(str(ctrl),
+
+        self.assertEqual(str(ctrl),
             """<input type='text' value='%s' id='appointment_time' name='appointment_time' onblur='handle_time_blur(this)' onkeydown='{time_help(this, event); if(event.ctrlKey == true) return false;}' />
     <script type="text/javascript">
         handle_time_blur(document.getElementByID('appointment_time'));
     </script>
 """ % time)
 
-
     def testTimePickerAMPM(self):
         # Basic value test
         ctrl = TimePicker('appointment_time')
         ctrl.defaultNow = True
         time = "%i:%s %s" % (int(datetime.now().strftime("%I")), datetime.now().strftime("%M"), datetime.now().strftime("%p"))
-        self.assertEquals(str(ctrl),
+        self.assertEqual(str(ctrl),
             """<input type='text' value='%s' id='appointment_time' name='appointment_time' onblur='handle_time_blur(this)' onkeydown='{time_help(this, event); if(event.ctrlKey == true) return false;}' />
     <script type="text/javascript">
         handle_time_blur(document.getElementByID('appointment_time'));

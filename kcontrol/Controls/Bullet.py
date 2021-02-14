@@ -10,7 +10,7 @@
 # License.
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 ###############################################################################
-from kcontrol.Controls.RepeaterControl import RepeaterControl
+from .RepeaterControl import RepeaterControl
 
 class Bullet(RepeaterControl):
     _mode     = 'disc' # disc, square, circle, number, lower, upper, roman_lower, roman_upper

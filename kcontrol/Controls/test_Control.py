@@ -21,14 +21,14 @@ class ControlTestCase(unittest.TestCase):
         # Basic value test
         ctrl = Control()
         ctrl.value = "test"
-        self.assertEquals(str(ctrl), "test")
+        self.assertEqual(str(ctrl), "test")
     
     
     def testControlSignature(self):
         # Basic value test
         ctrl = Control('first_name', 'First Name')
-        self.assertEquals(ctrl.name, 'first_name')
-        self.assertEquals(ctrl.caption, 'First Name')
+        self.assertEqual(ctrl.name, 'first_name')
+        self.assertEqual(ctrl.caption, 'First Name')
 
     def testResource(self):
         # Until threading is done...
@@ -37,17 +37,17 @@ class ControlTestCase(unittest.TestCase):
         ctrl = Control()
         ctrl.pushResourceUp('css','date/res/css/date.css')
         ctrl.pushResourceUp('css','css/form.css')
-        self.assertEquals(ResWatcher.css, ['kcontrol/res/date/res/css/date.css',
+        self.assertEqual(ResWatcher.css, ['kcontrol/res/date/res/css/date.css',
             'kcontrol/res/css/form.css'])
-        self.assertEquals([],ResWatcher.js)
+        self.assertEqual([],ResWatcher.js)
 
 
         ctrl = Control()
         ctrl.pushResourceUp('js','date/res/js/date.js')
         ctrl.pushResourceUp('js','js/form.js')
-        self.assertEquals(ResWatcher.js, ['kcontrol/res/date/res/js/date.js',
+        self.assertEqual(ResWatcher.js, ['kcontrol/res/date/res/js/date.js',
             'kcontrol/res/js/form.js'])
-        self.assertEquals(ResWatcher.css, ['kcontrol/res/date/res/css/date.css',
+        self.assertEqual(ResWatcher.css, ['kcontrol/res/date/res/css/date.css',
             'kcontrol/res/css/form.css'])
 
         print(ResWatcher.js)

@@ -1,16 +1,16 @@
 __all__ = ['Link']
-from Control import Control
+from .Control import Control
 
 class Link(Control):
     link = None
     target = None
     jsFunc = None
     encode = True
-    
+
     def __init__(self, *a, **k):
         Control.__init__(self, *a, **k)
         self.queryStringDict = {}
-        
+
     def addQSVar(self, name, field=''):
         self.queryStringDict[name] = field
 
@@ -35,7 +35,7 @@ class Link(Control):
                     else:
                         out.append('"%s"' % k)
             return "javascript:%s(%s)" % (self.jsFunc, ", ".join(out))
-    
+
     def drawLinkTagOpen(self):
         self.addHtmlAttr('href', self.drawLink())
         if self.target is not None:

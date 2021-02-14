@@ -10,7 +10,7 @@
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
 import cgi
-from FormControl import FormControl
+from .FormControl import FormControl
 
 class ListBox(FormControl):
     _vals_built = False

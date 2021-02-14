@@ -1,4 +1,3 @@
-
 # The contents of this program are subject to the Koar Public License
 # (the "License"); you may not use this file except in compliance with
 # the License. You may obtain a copy of the License at
@@ -10,18 +9,15 @@
 # License.
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
-
 import unittest
 
-from kcontrol import FilePicker
-import kcontrol.config as cfg
-
+from .FilePicker import FilePicker
 
 class FilePickerTestCase(unittest.TestCase):
     def testFilePicker(self):
         # Basic value test
         ctrl = FilePicker('favorite_image')
-        self.assertEquals(str(ctrl), 
+        self.assertEqual(str(ctrl), 
             "<input type='file' value='' id='favorite_image' name='favorite_image'  />")
 
 

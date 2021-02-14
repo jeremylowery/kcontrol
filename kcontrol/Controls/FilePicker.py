@@ -11,11 +11,11 @@
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
 __all__ = ['FilePicker']
-from FormControl import FormControl
+from .FormControl import FormControl
 
 class FilePicker(FormControl):
-	inputType = 'file'
-	
-	def buildResources(self):
-		self.pushResourceUp('html_enctype', 'form/multi-part')
-	
+    inputType = 'file'
+    
+    def buildResources(self):
+        self.pushResourceUp('html_enctype', 'form/multi-part')
+    

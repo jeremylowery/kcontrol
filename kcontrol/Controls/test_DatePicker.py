@@ -1,9 +1,8 @@
 #!/usr/bin/env python
+import datetime
 import unittest
 
-from kcontrol import DatePicker
-import kcontrol.config as cfg
-
+from .DatePicker import DatePicker
 
 class DatePickerTestCase(unittest.TestCase):
 
@@ -11,25 +10,23 @@ class DatePickerTestCase(unittest.TestCase):
         # Basic value test
         ctrl = DatePicker('start_date')
         ctrl.showCalendar = False
-        self.assertEquals(str(ctrl),
+        self.assertEqual(str(ctrl),
             """<input type='text' value='' id='start_date' name='start_date' onchange='handle_date_blur(this, "yyyy-MM-dd")' />""")
 
-
     def testFormat(self):
-        import datetime
         ctrl = DatePicker('start_date')
         ctrl.mode = 'VIEW'
         val = datetime.datetime.now()
         res = val.strftime(ctrl.format)
         ctrl.value = val
-        self.assertEquals(str(ctrl), str(res))
+        self.assertEqual(str(ctrl), str(res))
 
     def testDatePickerSpinner(self):
         # Basic value test
         ctrl = DatePicker('start_date')
         ctrl.showCalendar = False
         ctrl.showSpinner = True
-        self.assertEquals(str(ctrl),
+        self.assertEqual(str(ctrl),
             """<input type='text' value='' id='start_date' name='start_date' onchange='handle_date_blur(this, "yyyy-MM-dd")' />
             <table cellpadding='0' cellspacing='0' border='0' style='display:inline;vertical-align:bottom;'>
             <tr>
@@ -45,7 +42,7 @@ class DatePickerTestCase(unittest.TestCase):
         # Basic value test
         ctrl = DatePicker('start_date')
 
-        self.assertEquals(str(ctrl), """                <table cellpadding='0' cellspacing='0' border='0'>
+        self.assertEqual(str(ctrl), """                <table cellpadding='0' cellspacing='0' border='0'>
                 <tr>
                     <td><input type='text' value='' id='start_date' name='start_date' onchange='handle_date_blur(this, "yyyy-MM-dd")' /></td>
                     <td><img src="/kcontrol/DatePicker/images/cal.gif" id="trigstart_date"

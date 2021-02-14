@@ -11,18 +11,18 @@
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
 __all__ = ['CheckBox']
-from FormControl import FormControl
-from kcontrol.unrepr import unrepr
+from .FormControl import FormControl
+from kcontrol import util
 
 class CheckBox(FormControl):
     inputType = 'checkbox'
-            
+
     def draw(self):
         # fix for cheetah useage
         if not self.value:
             self.value = self.defaultValue
-            
-        if unrepr(self.value):
+
+        if util.str2bool(self.value):
             value = " checked='checked' "
         else:
             value = ''

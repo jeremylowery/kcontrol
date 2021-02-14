@@ -11,7 +11,7 @@
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
 __all__ = ['Label']
-from Control import Control
+from .Control import Control
 
 class Label(Control):
     def draw(self):

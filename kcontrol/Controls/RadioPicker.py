@@ -1,6 +1,6 @@
 import cgi
-import cStringIO
-from FormControl import FormControl
+from kcontrol.util import StringIO
+from .FormControl import FormControl
 
 class RadioPicker(FormControl):
     _vals_built = False
@@ -21,7 +21,7 @@ class RadioPicker(FormControl):
         self.values.append((caption, value))
 
     def draw(self):
-        buf = cStringIO.StringIO()
+        buf = StringIO()
         jscript = '\n'.join(self._resourcesUp.get('inline_js', []))
         if jscript:
             buf.write("<script langauge='javascript'>\n")

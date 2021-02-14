@@ -11,7 +11,7 @@
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 
 __all__ = ['Button']
-from FormControl import FormControl
+from .FormControl import FormControl
 
 class Button(FormControl):
     inputType = 'button'

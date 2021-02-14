@@ -12,7 +12,7 @@
 
 __all__ = ['Hidden']
 import datetime
-from FormControl import FormControl
+from .FormControl import FormControl
 
 class Hidden(FormControl):
     inputType = 'hidden'

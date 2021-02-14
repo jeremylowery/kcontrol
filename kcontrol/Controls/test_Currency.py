@@ -14,15 +14,13 @@
 import unittest
 import math
 
-from kcontrol import Currency
-import kcontrol.config as cfg
-
+from .Currency import Currency
 
 class CurrencyTestCase(unittest.TestCase):
     def testCurrency(self):
         # Basic value test
         ctrl = Currency('total')
-        self.assertEquals(str(ctrl),
+        self.assertEqual(str(ctrl),
             """<input type='text' value='' style='text-align:right;' id='total' name='total' onchange='formatCurrency("total",1);' />""")
 
 
@@ -30,19 +28,19 @@ class CurrencyTestCase(unittest.TestCase):
         # Basic value test
         ctrl = Currency('total')
         ctrl.hideSign = True
-        self.assertEquals(str(ctrl),
+        self.assertEqual(str(ctrl),
             """<input type='text' value='' style='text-align:right;' id='total' name='total' onchange='formatCurrency("total",0);' />""")
 
         ctrl.hideSign = False
-        self.assertEquals(ctrl.view, '')
+        self.assertEqual(ctrl.view, '')
         ctrl.value = math.pi
-        self.assertEquals(ctrl.view, '$3.14')
+        self.assertEqual(ctrl.view, '$3.14')
     
         ctrl.value = 3
-        self.assertEquals(ctrl.view, '$3.00')
+        self.assertEqual(ctrl.view, '$3.00')
         
         ctrl.value = -1.223
-        self.assertEquals(ctrl.view,
+        self.assertEqual(ctrl.view,
             "<span style='color:#FF0000;'>$1.22</span>")
 
 

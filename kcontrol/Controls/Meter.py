@@ -11,9 +11,9 @@
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 ###############################################################################
 __all__ = ['Meter']
-
-from FormControl import FormControl
 from decimal import Decimal
+
+from .FormControl import FormControl
 
 class Meter(FormControl):
     width = 100

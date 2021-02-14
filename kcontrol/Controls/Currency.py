@@ -12,7 +12,7 @@
 
 from decimal import Decimal
 from kcontrol.url import res
-from kcontrol.Controls.TextBox import TextBox
+from .TextBox import TextBox
 __all__ = ['Currency']
 
 class Currency(TextBox):

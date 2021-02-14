@@ -35,7 +35,7 @@ class CompositeControl(Control):
         res = Control.matchResource(self, res_pat)
         for ctrl in self._ctrls:
             res = res + ctrl.matchUpResource(res_pat)
-        return filter(lambda r: r in self.propResources() or r in self._resources, UniqueList(res))
+        return list(filter(lambda r: r in self.propResources() or r in self._resources, UniqueList(res)))
         
     def getUpResource(self, res_type, idx=1):
         """ Retrieve a resource propigated up to control """

@@ -11,7 +11,7 @@
 # included LICENSE.txt file for more information. Copyright 2007 KCG.
 ###############################################################################
 __all__ = ['Info']
-from Control import Control
+from .Control import Control
 
 class Info(Control):
     def draw(self):

@@ -13,7 +13,6 @@ __all__ = ["Control", "ResWatcher"]
 
 import os
 import logging
-import string
 import fnmatch
 import urllib
 
@@ -371,10 +370,10 @@ class Control(object):
         self._addResourceToChain(self._resourcesDown, res_type, res)
 
     def matchUpResource(self, res_pat):
-        return fnmatch.filter(self._resourcesUp, res_pat)
+        return list(fnmatch.filter(self._resourcesUp, res_pat))
 
     def matchDownResource(self, res_pat):
-        res = fnmatch.filter(self._resourcesDown, res_pat)
+        res = list(fnmatch.filter(self._resourcesDown, res_pat))
         if self._parent:
             res = res + self._parent.matchDownResource(res_pat)
         return res
@@ -383,11 +382,11 @@ class Control(object):
         """ Find matches for a given resource pattern. Current fnmatch
         (glob-style) matching is supported.
         """
-        res = fnmatch.filter(self._resources.keys(), res_pat)
+        res = list(fnmatch.filter(self._resources.keys(), res_pat))
 
         if self._parent:
             res = res + self._parent.matchDownResource(res_pat)
-        return filter(lambda r: r in self.propResources() or r in self._resources, UniqueList(res))
+        return list(filter(lambda r: r in self.propResources() or r in self._resources, UniqueList(res)))
 
     def getDownResource(self, res_type, idx=1):
         """ Retrieve a resource propigated down to  control """
@@ -701,7 +700,7 @@ DataSource: %s (%s)
             ['"', '&quot;']
         ]
         for code in codes:
-            s = string.replace(s, code[0], code[1])
+            s = s.replace(code[0], code[1])
         return s
 
     def htmlDecode(self, s):
@@ -713,7 +712,7 @@ DataSource: %s (%s)
             ['"', '&quot;']
         ]
         for code in codes:
-            s = string.replace(s, code[1], code[0])
+            s = s.replace(code[1], code[0])
         return s
 
     def urlEncode(self, s):

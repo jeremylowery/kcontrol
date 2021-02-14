@@ -15,8 +15,7 @@ import sys
 import math
 import unittest
 
-from kcontrol import Number
-import kcontrol.config as cfg
+from .Number import Number
 
 x = 0
 def count():
@@ -29,7 +28,7 @@ class NumberTestCase(unittest.TestCase):
         print(count())
         # Basic value test
         ctrl = Number('total')
-        self.assertEquals(str(ctrl),
+        self.assertEqual(str(ctrl),
             """<input type='text' value='' style='text-align:right;' """ \
             """id='total' name='total' onblur='formatNumber("total", 2) ' />""")
 
@@ -38,7 +37,7 @@ class NumberTestCase(unittest.TestCase):
         # Basic value test
         ctrl = Number('total')
         ctrl.decimals = 4
-        self.assertEquals(str(ctrl),
+        self.assertEqual(str(ctrl),
             """<input type='text' value='' style='text-align:right;' """ \
             """id='total' name='total' onblur='formatNumber("total", 4) ' />""")
     
@@ -46,29 +45,29 @@ class NumberTestCase(unittest.TestCase):
         print(count())
         ctrl = Number('total')
         ctrl.decimals = 4
-        self.assertEquals(ctrl.view, '')
+        self.assertEqual(ctrl.view, '')
         ctrl.value = math.pi
-        self.assertEquals(ctrl.view, '3.1416')
+        self.assertEqual(ctrl.view, '3.1416')
 
         ctrl.decimals = 0
-        self.assertEquals(ctrl.view, '3')
+        self.assertEqual(ctrl.view, '3')
         
         ctrl.decimals = 3
-        self.assertEquals(ctrl.view, '3.142')
+        self.assertEqual(ctrl.view, '3.142')
 
         ctrl.value = -1.223
-        self.assertEquals(ctrl.view,
+        self.assertEqual(ctrl.view,
             "<span style='color:#FF0000;'>-1.22</span>")
 
         ctrl.value = ''
-        self.assertEquals(ctrl.view, '')
+        self.assertEqual(ctrl.view, '')
 
     def testNumberMode(self):
         print(count())
         ctrl = Number('total')
         ctrl.decimals = 4
         ctrl.mode = 'VIEW'
-        self.assertEquals(str(ctrl), '4.0000')
+        self.assertEqual(str(ctrl), '4.0000')
 
 if __name__ == '__main__':
     unittest.main()

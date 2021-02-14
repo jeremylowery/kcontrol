@@ -12,7 +12,7 @@
 
 __all__ = ['DatePicker']
 import datetime
-from kcontrol.Controls.TextBox import TextBox
+from .TextBox import TextBox
 
 class DatePicker(TextBox):
     defaultToday = False

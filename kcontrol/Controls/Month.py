@@ -18,6 +18,6 @@ class Month(ListBox):
 
         for i in range(1, 13):
             self.values.append((i, i))
-    
+
         self.defaultValue = datetime.datetime.now().month
 
