@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 import os
-
 from distutils.core import setup
-
-
 os.chdir(os.path.abspath(os.path.join(__file__, "..")))
 
 setup(
@@ -13,12 +10,12 @@ setup(
     description="Simple html control library",
     license="MIT License",
     author="Jeremy Lowery",
-    author_email="jeremy@thensys.com",
-    url="http://bitbucket.org/jslowery/kcontrol",
+    author_email="jeremy@bitrel.com",
+    url="https://hg.bitrel.com/kcontrol",
     platforms="All",
     classifiers=[
-        "Development Status :: 4 - Beta",
-        "Environment :: Web Environment",   
+        "Development Status :: 5 - Beta",
+        "Environment :: Web Environment",
         "Intended Audience :: Developers",
         "Programming Language :: Python",
         "License :: OSI Approved :: MIT License",
@@ -26,6 +23,6 @@ setup(
     ],
     packages = [
         'kcontrol',
-        'kcontrol.Controls', 
+        'kcontrol.Controls',
         'kcontrol.util']
     )
