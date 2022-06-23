@@ -1,8 +1,9 @@
 __all__ = ["Control", "ResWatcher"]
 
-import os
-import logging
 import fnmatch
+import html
+import logging
+import os
 import urllib
 
 import kcontrol.ds
@@ -640,16 +641,14 @@ class Control(object):
         """ Returns the html view of the base rep of the value, used for 
             the kcontrol server examples of these controls
         """
-        import cgi
-        return cgi.escape('%s %s' % (type(self.BASE), self.value))
+        return html.escape('%s %s' % (type(self.BASE), self.value))
 
     @property
     def _HTML_SHOW(self):
         """ Returns the html to be displayed in a browser, used for 
             the kcontrol server examples of these controls
         """
-        import cgi
-        return cgi.escape(self.render())
+        return html.escape(self.render())
 
         
     @property

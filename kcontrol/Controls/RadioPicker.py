@@ -1,4 +1,4 @@
-import cgi
+import html
 from kcontrol.util import StringIO
 from .FormControl import FormControl
 
@@ -29,10 +29,10 @@ class RadioPicker(FormControl):
             buf.write("</script>")
         buf.write(self.drawShadowControl())
         for caption, value in self.values:
-            cvalue = cgi.escape(value, True)
-            cname = cgi.escape(self.name, True)
+            cvalue = html.escape(value, True)
+            cname = html.escape(self.name, True)
             html_id = "%s_%s_%s" % (self.name, caption, value)
-            html_id = cgi.escape(html_id, True)
+            html_id = html.escape(html_id, True)
 
             buf.write("<input type='radio' value='%s' id='%s' " %
                       (cvalue, html_id))

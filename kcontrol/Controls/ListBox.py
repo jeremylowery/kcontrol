@@ -1,4 +1,4 @@
-import cgi
+import html
 from .FormControl import FormControl
 
 class ListBox(FormControl):
@@ -62,9 +62,9 @@ class ListBox(FormControl):
 
         for value, caption in self.values:
             opts.append('<option value="%s" %s>%s</option>' % (
-                cgi.escape(str(value), True),
+                html.escape(str(value), True),
                 value in values and "selected='selected'" or '',
-                cgi.escape(str(caption))
+                html.escape(str(caption))
             ))
         return '\n'.join(opts)
 

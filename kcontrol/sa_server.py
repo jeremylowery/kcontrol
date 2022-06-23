@@ -4,7 +4,7 @@ Example ./sa_server.py -a cps_ar/
 
 """
 import os
-import cgi
+import html
 import optparse
 import decimal
 import datetime
@@ -44,10 +44,10 @@ config = {
 }
 
 def mytype(kcon):
-    return cgi.escape(str(type(kcon.BASE)))
+    return html.escape(str(type(kcon.BASE)))
 
 def code(s):
-    return cgi.escape(str(s))
+    return html.escape(str(s))
 
 tmpl = Template("""
 <% import kcontrol %>
