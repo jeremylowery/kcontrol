@@ -52,7 +52,7 @@ class DatePicker(TextBox):
     def draw(self):
         img_path = '/repo/img/kcontrol'
 
-        if not self.value or isinstance(self.value, basestring):
+        if not self.value or isinstance(self.value, str):
             pass
         else:
             try:
