@@ -1,4 +1,5 @@
 
+from past.builtins import basestring
 __all__ = ['DatePicker']
 import datetime
 from .TextBox import TextBox
@@ -37,8 +38,8 @@ class DatePicker(TextBox):
         else:
             return self._defaultValue
     defaultValue = property(_get_defaultValue,
-			    TextBox._set_defaultValue,
-			     doc=TextBox._doc_defaultValue)
+                            TextBox._set_defaultValue,
+                            doc=TextBox._doc_defaultValue)
 
     def buildResources(self):
         self.pushResourceUp('css', 'calendar.css')
@@ -52,7 +53,7 @@ class DatePicker(TextBox):
     def draw(self):
         img_path = '/repo/img/kcontrol'
 
-        if not self.value or isinstance(self.value, str):
+        if not self.value or isinstance(self.value, basestring):
             pass
         else:
             try:
