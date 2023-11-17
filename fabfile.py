@@ -1,51 +1,17 @@
-import os
-import re
-from fabric.api import run, local, lcd, cd, put, env
+from fabric.api import *
 
-_version_re = re.compile("^\s*version=['\"]([^'\"]+)")
-def get_version():
-    for line in open("setup.py"):
-        match = _version_re.match(line)
-        if match:
-            return match.groups()[0]
+version = "0.2.2"
+wheel = "kcontrol-{0}-py3-none-any.whl".format(version)
+tarball = "kcontrol-{0}.tar.gz".format(version)
 
-def update(revision='tip'):
-    """ Update the development system. """
-    local("python setup.py install --prefix=/usr/local")
-    local("python3 setup.py install --prefix=/usr/local")
-    local("rm -rf build")
+def build():
+    local("python3 -m build")
 
-def deploy(revision='tip'):
-    """ Deploy the command line tools to the backend server and the
-    python library to the client server
-    """
-    version = get_version()
+def bumpver():
+    local("bumpver update -p --commit")
 
-    # Clean out working directory
-    if os.path.exists("/tmp/kcontrol"):
-        local("rm -rf /tmp/kcontrol")
+def twine():
+    local("twine upload dist/{0} dist/{1}".format(wheel, tarball))
 
-    # Pull source code from repository
-    local("hg clone -qr %s . /tmp/kcontrol" % revision)
-
-    # Build a source distribution
-    with lcd("/tmp/kcontrol"):
-        local("python setup.py --quiet sdist")
-        local("python3 setup.py --quiet sdist")
-
-    # Send to remote host
-    tarball = "/tmp/kcontrol/dist/kcontrol-%s.tar.gz" % version
-    put(tarball, "/tmp")
-
-    # untar
-    with cd("/tmp"):
-        run("tar xzf kcontrol-%s.tar.gz" % version)
-
-    # setup
-    with cd("/tmp/kcontrol-%s" % version):
-        run("python setup.py --quiet install --prefix=/usr/local")
-
-    # cleanup
-    run("rm -rf /tmp/kcontrol-%s" % version)
-    run("rm -f /tmp/kcontrol-%s.tar.gz" % version)
-    local("rm -rf /tmp/kcontrol")
+def develop():
+    local("python3 -m pip -e .")

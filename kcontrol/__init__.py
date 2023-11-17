@@ -1,4 +1,4 @@
-
+__version__ = "0.1.3"
 from .ds import store
 from .ds import from_fs
 

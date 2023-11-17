@@ -1,7 +1,4 @@
-#!/usr/bin/env python
-import os
-from distutils.core import setup
-os.chdir(os.path.abspath(os.path.join(__file__, "..")))
+from setuptools import setup
 
 setup(
     name="kcontrol",
@@ -11,7 +8,7 @@ setup(
     license="MIT License",
     author="Jeremy Lowery",
     author_email="jeremy@bitrel.com",
-    url="https://hg.bitrel.com/kcontrol",
+    url="https://github.com/jeremylowery/kcontrol",
     platforms="All",
     classifiers=[
         "Development Status :: 5 - Beta",
