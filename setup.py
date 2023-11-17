@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="kcontrol",
-    version="0.1.3",
+    version="0.1.4",
     provides=["kcontrol"],
     description="Simple html control library",
     license="MIT License",

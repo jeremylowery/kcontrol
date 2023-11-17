@@ -1,6 +1,6 @@
 from fabric.api import *
 
-version = "0.2.2"
+version = "0.1.4"
 wheel = "kcontrol-{0}-py3-none-any.whl".format(version)
 tarball = "kcontrol-{0}.tar.gz".format(version)
 
