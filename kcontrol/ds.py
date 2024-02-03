@@ -1,12 +1,15 @@
+try:
+    from collections.abc import MutableMapping
+except ImportError:
+    from collections import MutableMapping
 
 import cgi
-import collections
 import copy
 import threading
 
 __all__ = ['DS', 'SingleValueDS', 'RepeatDS']
 
-class ThreadDict(collections.MutableMapping):
+class ThreadDict(MutableMapping):
     """ Dictionary-like thread local storage. """
     def __init__(self):
         self._local = threading.local()
